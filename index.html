@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seldon-Omega | Plataforma de Inversiones</title>
+  <meta name="description" content="Plataforma profesional de análisis de mercados e inversiones Seldon-Omega para Carlos E." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="main-header">
+    <div class="header-left">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">SELDON<span class="logo-accent">-Ω</span></span>
+      </div>
+      <div class="header-tagline">Sistema de Análisis de Mercados</div>
+    </div>
+    <div class="header-center">
+      <nav class="tab-nav" id="main-nav">
+        <button class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">
+          <span class="tab-icon">📊</span><span class="tab-label">Dashboard</span>
+        </button>
+        <button class="nav-tab" data-tab="protocolo" onclick="switchTab('protocolo')">
+          <span class="tab-icon">🔬</span><span class="tab-label">Protocolo</span>
+        </button>
+        <button class="nav-tab" data-tab="nlp" onclick="switchTab('nlp')">
+          <span class="tab-icon">🧠</span><span class="tab-label">NLP</span>
+        </button>
+        <button class="nav-tab" data-tab="gurus" onclick="switchTab('gurus')">
+          <span class="tab-icon">👁️</span><span class="tab-label">Gurús</span>
+        </button>
+        <button class="nav-tab" data-tab="chat" onclick="switchTab('chat')">
+          <span class="tab-icon">🤖</span><span class="tab-label">R2D2</span>
+        </button>
+        <button class="nav-tab" data-tab="calendario" onclick="switchTab('calendario')">
+          <span class="tab-icon">📅</span><span class="tab-label">Calendario</span>
+        </button>
+        <button class="nav-tab" data-tab="auditoria" onclick="switchTab('auditoria')">
+          <span class="tab-icon">📈</span><span class="tab-label">Auditoría</span>
+        </button>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="live-badge">
+        <span class="live-dot"></span> LIVE
+      </div>
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Alternar tema">🌙</button>
+      <div class="user-avatar">CE</div>
+    </div>
+  </header>
+
+  <!-- Ticker Strip -->
+  <div class="ticker-strip">
+    <div class="ticker-inner" id="ticker-inner">
+      <div class="ticker-item"><span class="ticker-sym">S&P 500</span> <span class="ticker-val" id="sp500-val">5,221.42</span> <span class="ticker-chg positive">+0.34%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">NASDAQ</span> <span class="ticker-val" id="nasdaq-val">16,384.47</span> <span class="ticker-chg positive">+0.51%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">DXY</span> <span class="ticker-val" id="dxy-val">103.82</span> <span class="ticker-chg negative">-0.12%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">WTI</span> <span class="ticker-val" id="wti-val">77.14</span> <span class="ticker-chg positive">+0.28%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">GOLD</span> <span class="ticker-val" id="gold-tick-val">2,341.60</span> <span class="ticker-chg positive">+0.72%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">NVDA</span> <span class="ticker-val">881.86</span> <span class="ticker-chg positive">+1.23%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">NKE</span> <span class="ticker-val">94.32</span> <span class="ticker-chg negative">-0.45%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">VIX</span> <span class="ticker-val" id="vix-tick">14.23</span> <span class="ticker-chg negative">-3.21%</span></div>
+      <!-- duplicado para scroll infinito -->
+      <div class="ticker-item"><span class="ticker-sym">S&P 500</span> <span class="ticker-val">5,221.42</span> <span class="ticker-chg positive">+0.34%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">NASDAQ</span> <span class="ticker-val">16,384.47</span> <span class="ticker-chg positive">+0.51%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">DXY</span> <span class="ticker-val">103.82</span> <span class="ticker-chg negative">-0.12%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">WTI</span> <span class="ticker-val">77.14</span> <span class="ticker-chg positive">+0.28%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">GOLD</span> <span class="ticker-val">2,341.60</span> <span class="ticker-chg positive">+0.72%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">NVDA</span> <span class="ticker-val">881.86</span> <span class="ticker-chg positive">+1.23%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">NKE</span> <span class="ticker-val">94.32</span> <span class="ticker-chg negative">-0.45%</span></div>
+      <div class="ticker-item"><span class="ticker-sym">VIX</span> <span class="ticker-val">14.23</span> <span class="ticker-chg negative">-3.21%</span></div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- ===== TAB 1: DASHBOARD ===== -->
+    <section class="tab-content active" id="tab-dashboard">
+      <!-- Clocks Row -->
+      <div class="section-header"><h2>⏱️ Relojes en Tiempo Real</h2></div>
+      <div class="clocks-grid">
+        <div class="clock-card" id="clock-colombia">
+          <div class="clock-zone">🇨🇴 Colombia</div>
+          <div class="clock-time" id="time-colombia">--:--:--</div>
+          <div class="clock-date" id="date-colombia"></div>
+          <div class="clock-offset">GMT-5</div>
+        </div>
+        <div class="clock-card" id="clock-ny">
+          <div class="clock-zone">🇺🇸 New York</div>
+          <div class="clock-time" id="time-ny">--:--:--</div>
+          <div class="clock-date" id="date-ny"></div>
+          <div class="clock-offset">EST/EDT</div>
+        </div>
+        <div class="clock-card" id="clock-paris">
+          <div class="clock-zone">🇫🇷 París</div>
+          <div class="clock-time" id="time-paris">--:--:--</div>
+          <div class="clock-date" id="date-paris"></div>
+          <div class="clock-offset">CET/CEST</div>
+        </div>
+        <div class="clock-card" id="clock-saudi">
+          <div class="clock-zone">🇸🇦 Arabia Saudita</div>
+          <div class="clock-time" id="time-saudi">--:--:--</div>
+          <div class="clock-date" id="date-saudi"></div>
+          <div class="clock-offset">GMT+3</div>
+        </div>
+      </div>
+
+      <!-- Portfolio + VIX + Markets Row -->
+      <div class="dashboard-grid-2">
+        <!-- Portfolio -->
+        <div class="card portfolio-card">
+          <div class="card-header">
+            <h3>💼 Portafolio eToro</h3>
+            <span class="card-badge">3 Activos</span>
+          </div>
+          <table class="portfolio-table">
+            <thead>
+              <tr>
+                <th>Activo</th>
+                <th>Cant.</th>
+                <th>P. Compra</th>
+                <th>P. Actual</th>
+                <th>G/P USD</th>
+                <th>%</th>
+              </tr>
+            </thead>
+            <tbody id="portfolio-body">
+              <tr>
+                <td><span class="asset-badge nvda">NVDA</span></td>
+                <td>5</td>
+                <td>$622.00</td>
+                <td class="price-live" id="nvda-price">$881.86</td>
+                <td class="positive">+$1,299.30</td>
+                <td class="positive">+41.7%</td>
+              </tr>
+              <tr>
+                <td><span class="asset-badge gold">GOLD</span></td>
+                <td>3</td>
+                <td>$2,050.00</td>
+                <td class="price-live" id="gold-price">$2,341.60</td>
+                <td class="positive">+$874.80</td>
+                <td class="positive">+14.2%</td>
+              </tr>
+              <tr>
+                <td><span class="asset-badge nke">NKE</span></td>
+                <td>10</td>
+                <td>$102.50</td>
+                <td class="price-live" id="nke-price">$94.32</td>
+                <td class="negative">-$81.80</td>
+                <td class="negative">-7.98%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="portfolio-total">
+            <span>Total Portafolio</span>
+            <span class="total-value">$24,847.40</span>
+            <span class="total-gain positive">+$2,092.30 (+9.2%)</span>
+          </div>
+        </div>
+
+        <!-- VIX + Markets -->
+        <div class="vix-markets-col">
+          <div class="card vix-card">
+            <div class="card-header"><h3>📉 VIX & Régimen</h3></div>
+            <div class="vix-display">
+              <div class="vix-value" id="vix-value">14.23</div>
+              <div class="vix-label">Índice de Volatilidad</div>
+            </div>
+            <div class="regime-badge risk-on" id="regime-badge">
+              <span class="regime-dot"></span>
+              <span id="regime-text">RISK ON</span>
+            </div>
+            <div class="vix-scale">
+              <div class="scale-bar">
+                <div class="scale-fill" id="vix-scale-fill" style="width:28%"></div>
+              </div>
+              <div class="scale-labels"><span>0</span><span>20</span><span>40</span><span>80+</span></div>
+            </div>
+          </div>
+          <div class="card markets-card">
+            <div class="card-header"><h3>🌍 Estado Mercados</h3></div>
+            <div class="markets-list" id="markets-list">
+              <div class="market-item"><span class="market-dot" id="nyse-dot"></span><span class="market-name">NYSE</span><span class="market-status" id="nyse-status">—</span></div>
+              <div class="market-item"><span class="market-dot" id="nasdaq-dot"></span><span class="market-name">NASDAQ</span><span class="market-status" id="nasdaq-status">—</span></div>
+              <div class="market-item"><span class="market-dot" id="lse-dot"></span><span class="market-name">LSE (Londres)</span><span class="market-status" id="lse-status">—</span></div>
+              <div class="market-item"><span class="market-dot" id="tsx-dot"></span><span class="market-name">TSX (Toronto)</span><span class="market-status" id="tsx-status">—</span></div>
+              <div class="market-item"><span class="market-dot" id="crypto-dot" style="background:#8b5cf6"></span><span class="market-name">Crypto</span><span class="market-status positive">24/7</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Macro Indicators -->
+      <div class="section-header"><h2>📊 Indicadores Macro</h2></div>
+      <div class="macro-grid">
+        <div class="macro-card">
+          <div class="macro-name">S&P 500</div>
+          <div class="macro-value positive" id="macro-sp500">5,221.42</div>
+          <div class="macro-change positive">▲ +17.74 (+0.34%)</div>
+          <canvas class="mini-chart" id="chart-sp500"></canvas>
+        </div>
+        <div class="macro-card">
+          <div class="macro-name">NASDAQ</div>
+          <div class="macro-value positive" id="macro-nasdaq">16,384.47</div>
+          <div class="macro-change positive">▲ +83.56 (+0.51%)</div>
+          <canvas class="mini-chart" id="chart-nasdaq"></canvas>
+        </div>
+        <div class="macro-card">
+          <div class="macro-name">DXY</div>
+          <div class="macro-value negative" id="macro-dxy">103.82</div>
+          <div class="macro-change negative">▼ -0.12 (-0.12%)</div>
+          <canvas class="mini-chart" id="chart-dxy"></canvas>
+        </div>
+        <div class="macro-card">
+          <div class="macro-name">WTI (Petróleo)</div>
+          <div class="macro-value positive" id="macro-wti">77.14</div>
+          <div class="macro-change positive">▲ +0.22 (+0.28%)</div>
+          <canvas class="mini-chart" id="chart-wti"></canvas>
+        </div>
+        <div class="macro-card gold-macro">
+          <div class="macro-name">Oro (XAU/USD)</div>
+          <div class="macro-value positive" id="macro-gold">2,341.60</div>
+          <div class="macro-change positive">▲ +16.82 (+0.72%)</div>
+          <canvas class="mini-chart" id="chart-gold"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 2: PROTOCOLO ===== -->
+    <section class="tab-content" id="tab-protocolo">
+      <div class="section-header"><h2>🔬 Protocolo Seldon-Omega</h2><span class="section-badge">Actualizado hoy</span></div>
+
+      <!-- Daily Reports -->
+      <div class="card">
+        <div class="card-header"><h3>📋 Reportes Diarios</h3></div>
+        <div class="report-tabs">
+          <button class="report-tab active" onclick="switchReport('r8')">8:00 AM</button>
+          <button class="report-tab" onclick="switchReport('r12')">12:00 PM</button>
+          <button class="report-tab" onclick="switchReport('r17')">5:00 PM</button>
+        </div>
+        <div class="report-content active" id="report-r8">
+          <div class="report-grid">
+            <div class="report-item"><span class="report-num">1</span><strong>Régimen de Mercado:</strong> RISK ON — VIX 14.23, por debajo de umbral 20.</div>
+            <div class="report-item"><span class="report-num">2</span><strong>TOP 8 Actualizado:</strong> NVDA ✅ | GOLD ✅ | NKE ✅ | MSFT ⚡ | AMZN ⚡ | META ⚡ | AAPL ⚡ | TSM ⚡</div>
+            <div class="report-item"><span class="report-num">3</span><strong>Gatillo Confluencia:</strong> NVDA 🟢 | GOLD 🟢 | NKE 🔴 | MSFT 🟢</div>
+            <div class="report-item"><span class="report-num">4</span><strong>Z-Scores:</strong> Z_NLP(NVDA)=1.82 | Z_Vol(NVDA)=2.14 | Score=3.89</div>
+            <div class="report-item"><span class="report-num">5</span><strong>Escenario T+3:</strong> NVDA — A favor (+3.2%), Lateral (±0.8%), En contra (-2.1%)</div>
+            <div class="report-item"><span class="report-num">6</span><strong>Ticket Recomendado:</strong> BUY NVDA | X5 | SL: 857.00 | TP: 920.00</div>
+            <div class="report-item"><span class="report-num">7</span><strong>Lógica del Día:</strong> Martes — día operable. Condiciones favorables.</div>
+            <div class="report-item"><span class="report-num">8</span><strong>Kill Switch:</strong> <span class="positive">INACTIVO</span> — Ejecutar con normalidad.</div>
+          </div>
+        </div>
+        <div class="report-content" id="report-r12">
+          <div class="report-grid">
+            <div class="report-item"><span class="report-num">1</span><strong>Régimen Mid-Sesión:</strong> RISK ON mantenido. Apertura positiva sostenida.</div>
+            <div class="report-item"><span class="report-num">2</span><strong>Actualización TOP 8:</strong> Sin cambios en el universo. Todos estables.</div>
+            <div class="report-item"><span class="report-num">3</span><strong>Gatillo Confluencia:</strong> NVDA 🟢 confirmado | GOLD 🟢 | NKE 🔴 sin mejora</div>
+            <div class="report-item"><span class="report-num">4</span><strong>Z-Scores Mid:</strong> Z_NLP(NVDA)=1.91 ▲ | Z_Vol(NVDA)=2.08 → Score=3.98</div>
+            <div class="report-item"><span class="report-num">5</span><strong>Escenario T+3 revisado:</strong> Escenario favorable se mantiene para NVDA</div>
+            <div class="report-item"><span class="report-num">6</span><strong>Ticket:</strong> BUY NVDA vigente | Ajustar SL a 862.00 (movimiento favorable)</div>
+            <div class="report-item"><span class="report-num">7</span><strong>Lógica Mid-Sesión:</strong> Mantener posición. No abrir nuevas entradas hasta cierre.</div>
+            <div class="report-item"><span class="report-num">8</span><strong>Kill Switch:</strong> <span class="positive">INACTIVO</span></div>
+          </div>
+        </div>
+        <div class="report-content" id="report-r17">
+          <div class="report-grid">
+            <div class="report-item"><span class="report-num">1</span><strong>Régimen Cierre:</strong> RISK ON — Cierre ligeramente positivo. Sostenido.</div>
+            <div class="report-item"><span class="report-num">2</span><strong>TOP 8 Cierre:</strong> NVDA ✅ | GOLD ✅ | NKE — posible rotación mañana</div>
+            <div class="report-item"><span class="report-num">3</span><strong>Gatillo Confluencia Cierre:</strong> NVDA 🟢 | GOLD 🟢 | Revisar NKE mañana</div>
+            <div class="report-item"><span class="report-num">4</span><strong>Z-Scores Cierre:</strong> Z_NLP=1.88 | Z_Vol=2.22 | Score=4.17 — Señal Fuerte</div>
+            <div class="report-item"><span class="report-num">5</span><strong>Preparación T+3:</strong> Mañana buscar confirmación en apertura para NVDA</div>
+            <div class="report-item"><span class="report-num">6</span><strong>Resumen Operativo:</strong> Día positivo. NVDA +1.23%. GOLD +0.72%.</div>
+            <div class="report-item"><span class="report-num">7</span><strong>Lógica Semanal:</strong> Miércoles mañana — día operable. Preparar plan.</div>
+            <div class="report-item"><span class="report-num">8</span><strong>Kill Switch:</strong> <span class="positive">INACTIVO</span> — Continuar operando normalmente.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOP 8 + Gatillo -->
+      <div class="proto-grid">
+        <div class="card">
+          <div class="card-header"><h3>🏆 Universo TOP 8</h3></div>
+          <div class="top8-grid" id="top8-grid">
+            <div class="top8-item fixed"><span class="top8-badge fixed-badge">FIJO</span><div class="top8-ticker">NVDA</div><div class="top8-name">NVIDIA Corp</div><div class="gatillo-badge green">🟢 LUZ VERDE</div></div>
+            <div class="top8-item fixed"><span class="top8-badge fixed-badge">FIJO</span><div class="top8-ticker">GOLD</div><div class="top8-name">Barrick Gold</div><div class="gatillo-badge green">🟢 LUZ VERDE</div></div>
+            <div class="top8-item fixed"><span class="top8-badge fixed-badge">FIJO</span><div class="top8-ticker">NKE</div><div class="top8-name">Nike Inc</div><div class="gatillo-badge red">🔴 LUZ ROJA</div></div>
+            <div class="top8-item dynamic"><span class="top8-badge dp-badge">DIN.</span><div class="top8-ticker">MSFT</div><div class="top8-name">Microsoft</div><div class="gatillo-badge green">🟢 LUZ VERDE</div></div>
+            <div class="top8-item dynamic"><span class="top8-badge dp-badge">DIN.</span><div class="top8-ticker">AMZN</div><div class="top8-name">Amazon</div><div class="gatillo-badge green">🟢 LUZ VERDE</div></div>
+            <div class="top8-item dynamic"><span class="top8-badge dp-badge">DIN.</span><div class="top8-ticker">META</div><div class="top8-name">Meta Platforms</div><div class="gatillo-badge green">🟢 LUZ VERDE</div></div>
+            <div class="top8-item dynamic"><span class="top8-badge dp-badge">DIN.</span><div class="top8-ticker">AAPL</div><div class="top8-name">Apple Inc</div><div class="gatillo-badge red">🔴 LUZ ROJA</div></div>
+            <div class="top8-item dynamic"><span class="top8-badge dp-badge">DIN.</span><div class="top8-ticker">TSM</div><div class="top8-name">Taiwan Semi</div><div class="gatillo-badge green">🟢 LUZ VERDE</div></div>
+          </div>
+        </div>
+
+        <!-- Order Tickets + T+3 -->
+        <div class="proto-right-col">
+          <div class="card">
+            <div class="card-header"><h3>🎟️ Ticket de Orden eToro</h3></div>
+            <div class="ticket-box" id="ticket-box">
+              <div class="ticket-header">
+                <span class="ticket-action buy">BUY</span>
+                <span class="ticket-sym">NVDA</span>
+                <button class="copy-btn" onclick="copyTicket()" title="Copiar ticket">📋 Copiar</button>
+              </div>
+              <div class="ticket-details">
+                <div class="ticket-row"><span>Símbolo:</span><strong>NVDA (NVIDIA Corp)</strong></div>
+                <div class="ticket-row"><span>Acción:</span><strong class="positive">BUY (Long)</strong></div>
+                <div class="ticket-row"><span>Apalancamiento:</span><strong>X5</strong></div>
+                <div class="ticket-row"><span>Stop Loss:</span><strong class="negative">$857.00</strong></div>
+                <div class="ticket-row"><span>Take Profit:</span><strong class="positive">$920.00</strong></div>
+                <div class="ticket-row"><span>Monto:</span><strong>$500 USD (mín. recomendado)</strong></div>
+                <div class="ticket-row"><span>Gatillo:</span><strong class="positive">✅ CONFLUENCIA</strong></div>
+                <div class="ticket-row"><span>Régimen:</span><strong class="positive">RISK ON</strong></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>📆 Escenarios T+3</h3></div>
+            <div class="scenario-list">
+              <div class="scenario-item favor"><span class="scenario-icon">✅</span><strong>A Favor</strong><span>+3.2% — Momentum positivo. Mantener posición larga.</span></div>
+              <div class="scenario-item lateral"><span class="scenario-icon">➡️</span><strong>Lateral</strong><span>±0.8% — Sin señal clara. Reducir exposición 50%.</span></div>
+              <div class="scenario-item contra"><span class="scenario-icon">⚠️</span><strong>En Contra</strong><span>-2.1% — Stop Loss activo. Revisar régimen VIX.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checklist eToro -->
+      <div class="card">
+        <div class="card-header"><h3>✅ Checklist de Ejecución eToro</h3><button class="btn-secondary" onclick="resetChecklist()">Reiniciar</button></div>
+        <div class="checklist" id="etoro-checklist">
+          <label class="check-item"><input type="checkbox" onchange="checkItem(this)"><span>Verificar régimen de mercado (VIX &lt; 20 = RISK ON)</span></label>
+          <label class="check-item"><input type="checkbox" onchange="checkItem(this)"><span>Confirmar Gatillo de Confluencia en LUZ VERDE</span></label>
+          <label class="check-item"><input type="checkbox" onchange="checkItem(this)"><span>Revisar Z_NLP y Z_Vol (ambos &gt; 1.5)</span></label>
+          <label class="check-item"><input type="checkbox" onchange="checkItem(this)"><span>Establecer Stop Loss correcto según ticket</span></label>
+          <label class="check-item"><input type="checkbox" onchange="checkItem(this)"><span>Confirmar apalancamiento permitido (X1 o X5 según régimen)</span></label>
+          <label class="check-item"><input type="checkbox" onchange="checkItem(this)"><span>Verificar que no es lunes o viernes (días de baja operatividad)</span></label>
+          <label class="check-item"><input type="checkbox" onchange="checkItem(this)"><span>Confirmar que no hay eventos macro de alto impacto en las próximas 4h</span></label>
+          <label class="check-item"><input type="checkbox" onchange="checkItem(this)"><span>Kill Switch está INACTIVO</span></label>
+        </div>
+        <div class="checklist-progress">
+          <div class="progress-bar"><div class="progress-fill" id="checklist-fill" style="width:0%"></div></div>
+          <span id="checklist-count">0/8 completados</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 3: NLP / SENTIMIENTO ===== -->
+    <section class="tab-content" id="tab-nlp">
+      <div class="section-header"><h2>🧠 Análisis NLP & Sentimiento</h2></div>
+
+      <!-- News Cards -->
+      <div class="section-subheader"><h3>📰 Noticias por Sentimiento</h3></div>
+      <div class="news-grid" id="news-grid">
+        <div class="news-card positive">
+          <div class="news-sentiment-bar positive"></div>
+          <div class="news-body">
+            <div class="news-meta"><span class="news-source">Reuters</span><span class="news-time">Hace 2h</span><span class="sentiment-tag positive">POSITIVO</span></div>
+            <div class="news-title">NVIDIA reporta ingresos récord en segmento de IA, supera expectativas del mercado</div>
+            <div class="news-tickers"><span class="news-ticker">NVDA</span></div>
+            <a href="#" class="news-link">Leer artículo →</a>
+          </div>
+        </div>
+        <div class="news-card positive">
+          <div class="news-sentiment-bar positive"></div>
+          <div class="news-body">
+            <div class="news-meta"><span class="news-source">Bloomberg</span><span class="news-time">Hace 3h</span><span class="sentiment-tag positive">POSITIVO</span></div>
+            <div class="news-title">El oro supera los $2,350 por demanda de cobertura ante incertidumbre geopolítica</div>
+            <div class="news-tickers"><span class="news-ticker">GOLD</span></div>
+            <a href="#" class="news-link">Leer artículo →</a>
+          </div>
+        </div>
+        <div class="news-card neutral">
+          <div class="news-sentiment-bar neutral"></div>
+          <div class="news-body">
+            <div class="news-meta"><span class="news-source">WSJ</span><span class="news-time">Hace 5h</span><span class="sentiment-tag neutral">NEUTRO</span></div>
+            <div class="news-title">FED mantiene tasas. Powell señala posibles recortes en segunda mitad del año</div>
+            <div class="news-tickers"><span class="news-ticker">S&P500</span><span class="news-ticker">NASDAQ</span></div>
+            <a href="#" class="news-link">Leer artículo →</a>
+          </div>
+        </div>
+        <div class="news-card negative">
+          <div class="news-sentiment-bar negative"></div>
+          <div class="news-body">
+            <div class="news-meta"><span class="news-source">CNBC</span><span class="news-time">Hace 6h</span><span class="sentiment-tag negative">NEGATIVO</span></div>
+            <div class="news-title">Nike enfrenta presión en ventas en China y Europa; analistas revisan previsiones a la baja</div>
+            <div class="news-tickers"><span class="news-ticker">NKE</span></div>
+            <a href="#" class="news-link">Leer artículo →</a>
+          </div>
+        </div>
+        <div class="news-card positive">
+          <div class="news-sentiment-bar positive"></div>
+          <div class="news-body">
+            <div class="news-meta"><span class="news-source">FT</span><span class="news-time">Hace 8h</span><span class="sentiment-tag positive">POSITIVO</span></div>
+            <div class="news-title">Microsoft Cloud alcanza $35B en ingresos trimestrales, impulsado por Azure AI</div>
+            <div class="news-tickers"><span class="news-ticker">MSFT</span></div>
+            <a href="#" class="news-link">Leer artículo →</a>
+          </div>
+        </div>
+        <div class="news-card neutral">
+          <div class="news-sentiment-bar neutral"></div>
+          <div class="news-body">
+            <div class="news-meta"><span class="news-source">MarketWatch</span><span class="news-time">Hace 9h</span><span class="sentiment-tag neutral">NEUTRO</span></div>
+            <div class="news-title">Amazon anuncia expansión de centros de datos en Latinoamérica para 2025</div>
+            <div class="news-tickers"><span class="news-ticker">AMZN</span></div>
+            <a href="#" class="news-link">Leer artículo →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Z-Score Charts -->
+      <div class="section-subheader"><h3>📈 Z-Score de Sentimiento y Volumen</h3></div>
+      <div class="zscore-grid">
+        <div class="card zscore-card">
+          <div class="card-header"><h4>Z-Score — NVDA</h4><span class="positive">Score: 3.89</span></div>
+          <canvas id="zscore-nvda" height="120"></canvas>
+        </div>
+        <div class="card zscore-card">
+          <div class="card-header"><h4>Z-Score — GOLD</h4><span class="positive">Score: 2.41</span></div>
+          <canvas id="zscore-gold" height="120"></canvas>
+        </div>
+        <div class="card zscore-card">
+          <div class="card-header"><h4>Z-Score — NKE</h4><span class="negative">Score: -1.23</span></div>
+          <canvas id="zscore-nke" height="120"></canvas>
+        </div>
+        <div class="card zscore-card">
+          <div class="card-header"><h4>Z-Score — MSFT</h4><span class="positive">Score: 3.12</span></div>
+          <canvas id="zscore-msft" height="120"></canvas>
+        </div>
+      </div>
+
+      <!-- Heatmap -->
+      <div class="section-subheader"><h3>🌡️ Mapa de Calor de Sentimiento</h3></div>
+      <div class="card">
+        <div class="heatmap-grid" id="heatmap">
+          <div class="heat-cell very-positive" title="NVDA: Muy positivo"><strong>NVDA</strong><span>+3.89</span></div>
+          <div class="heat-cell positive" title="GOLD: Positivo"><strong>GOLD</strong><span>+2.41</span></div>
+          <div class="heat-cell negative" title="NKE: Negativo"><strong>NKE</strong><span>-1.23</span></div>
+          <div class="heat-cell very-positive" title="MSFT: Muy positivo"><strong>MSFT</strong><span>+3.12</span></div>
+          <div class="heat-cell positive" title="AMZN: Positivo"><strong>AMZN</strong><span>+1.87</span></div>
+          <div class="heat-cell positive" title="META: Positivo"><strong>META</strong><span>+2.04</span></div>
+          <div class="heat-cell neutral" title="AAPL: Neutro"><strong>AAPL</strong><span>+0.12</span></div>
+          <div class="heat-cell positive" title="TSM: Positivo"><strong>TSM</strong><span>+1.65</span></div>
+        </div>
+        <div class="heatmap-legend">
+          <span class="legend-item very-positive">Muy Positivo (&gt;3)</span>
+          <span class="legend-item positive">Positivo (1-3)</span>
+          <span class="legend-item neutral">Neutro (-1 a 1)</span>
+          <span class="legend-item negative">Negativo (&lt;-1)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 4: GURÚS ===== -->
+    <section class="tab-content" id="tab-gurus">
+      <div class="section-header"><h2>👁️ Gurús Inversores</h2></div>
+      <div class="gurus-grid" id="gurus-grid">
+
+        <!-- Warren Buffett -->
+        <div class="guru-card">
+          <div class="guru-avatar" style="background: linear-gradient(135deg, #f59e0b, #d97706);">WB</div>
+          <div class="guru-info">
+            <h3 class="guru-name">Warren Buffett</h3>
+            <div class="guru-title">Oráculo de Omaha · Berkshire Hathaway</div>
+            <div class="guru-quote">"El precio es lo que pagas, el valor es lo que obtienes."</div>
+            <div class="guru-style">
+              <span class="style-tag">Value Investing</span>
+              <span class="style-tag">Buy & Hold</span>
+              <span class="style-tag">Moat</span>
+            </div>
+          </div>
+          <div class="guru-actions">
+            <button class="guru-btn" onclick="showGuruDetail('buffett')">Ver Análisis</button>
+          </div>
+        </div>
+
+        <!-- Ray Dalio -->
+        <div class="guru-card">
+          <div class="guru-avatar" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">RD</div>
+          <div class="guru-info">
+            <h3 class="guru-name">Ray Dalio</h3>
+            <div class="guru-title">Bridgewater Associates</div>
+            <div class="guru-quote">"La diversificación es el único almuerzo gratis."</div>
+            <div class="guru-style">
+              <span class="style-tag">All-Weather</span>
+              <span class="style-tag">Macro</span>
+              <span class="style-tag">Risk Parity</span>
+            </div>
+          </div>
+          <div class="guru-actions">
+            <button class="guru-btn" onclick="showGuruDetail('dalio')">Ver Análisis</button>
+          </div>
+        </div>
+
+        <!-- George Soros -->
+        <div class="guru-card">
+          <div class="guru-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">GS</div>
+          <div class="guru-info">
+            <h3 class="guru-name">George Soros</h3>
+            <div class="guru-title">Soros Fund Management</div>
+            <div class="guru-quote">"Los mercados están en constante estado de incertidumbre y flujo."</div>
+            <div class="guru-style">
+              <span class="style-tag">Reflexividad</span>
+              <span class="style-tag">Macro Global</span>
+              <span class="style-tag">FX</span>
+            </div>
+          </div>
+          <div class="guru-actions">
+            <button class="guru-btn" onclick="showGuruDetail('soros')">Ver Análisis</button>
+          </div>
+        </div>
+
+        <!-- Peter Lynch -->
+        <div class="guru-card">
+          <div class="guru-avatar" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">PL</div>
+          <div class="guru-info">
+            <h3 class="guru-name">Peter Lynch</h3>
+            <div class="guru-title">Fidelity Magellan Fund</div>
+            <div class="guru-quote">"Invierte en lo que conoces."</div>
+            <div class="guru-style">
+              <span class="style-tag">GARP</span>
+              <span class="style-tag">Growth</span>
+              <span class="style-tag">Consumer</span>
+            </div>
+          </div>
+          <div class="guru-actions">
+            <button class="guru-btn" onclick="showGuruDetail('lynch')">Ver Análisis</button>
+          </div>
+        </div>
+
+        <!-- John Bogle -->
+        <div class="guru-card">
+          <div class="guru-avatar" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">JB</div>
+          <div class="guru-info">
+            <h3 class="guru-name">John Bogle</h3>
+            <div class="guru-title">Fundador de Vanguard</div>
+            <div class="guru-quote">"No busques la aguja en el pajar. ¡Compra el pajar entero!"</div>
+            <div class="guru-style">
+              <span class="style-tag">Index Funds</span>
+              <span class="style-tag">Pasivo</span>
+              <span class="style-tag">Largo Plazo</span>
+            </div>
+          </div>
+          <div class="guru-actions">
+            <button class="guru-btn" onclick="showGuruDetail('bogle')">Ver Análisis</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guru Detail Modal Area -->
+      <div class="guru-detail" id="guru-detail" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <h3 id="guru-detail-title">Detalle Gurú</h3>
+            <button class="btn-secondary" onclick="closeGuruDetail()">✕ Cerrar</button>
+          </div>
+          <div class="guru-detail-grid">
+            <div>
+              <h4>📊 Movimientos 13F (Últimos Filings)</h4>
+              <table class="portfolio-table" id="guru-13f-table">
+                <thead><tr><th>Acción</th><th>Ticker</th><th>Posición</th><th>Cambio</th></tr></thead>
+                <tbody id="guru-13f-body"></tbody>
+              </table>
+            </div>
+            <div>
+              <h4>🤔 ¿Qué haría hoy?</h4>
+              <div class="guru-today" id="guru-today-text"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 5: CHAT R2D2 ===== -->
+    <section class="tab-content" id="tab-chat">
+      <div class="chat-layout">
+        <div class="chat-sidebar">
+          <div class="chat-sidebar-header">
+            <h3>🤖 R2D2</h3>
+            <div class="r2d2-status"><span class="live-dot"></span> Online</div>
+          </div>
+          <div class="chat-history-list" id="chat-history-list">
+            <div class="history-item active" onclick="loadChat(1)">
+              <span class="history-icon">💬</span>
+              <div class="history-text">
+                <div class="history-title">Análisis NVDA</div>
+                <div class="history-time">Hoy 8:32 AM</div>
+              </div>
+            </div>
+            <div class="history-item" onclick="loadChat(2)">
+              <span class="history-icon">💬</span>
+              <div class="history-text">
+                <div class="history-title">VIX y régimen</div>
+                <div class="history-time">Ayer 5:14 PM</div>
+              </div>
+            </div>
+            <div class="history-item" onclick="loadChat(3)">
+              <span class="history-icon">💬</span>
+              <div class="history-text">
+                <div class="history-title">Estrategia GOLD</div>
+                <div class="history-time">Hace 2 días</div>
+              </div>
+            </div>
+          </div>
+          <button class="new-chat-btn" onclick="newChat()">+ Nueva Conversación</button>
+        </div>
+        <div class="chat-main">
+          <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">
+              <div class="message-avatar">R2</div>
+              <div class="message-content">
+                <div class="message-text">¡Hola Carlos! Soy R2D2, tu asistente de inversiones Seldon-Omega. Puedes preguntarme sobre el estado actual del mercado, análisis de activos del TOP 8, o el protocolo Seldon-Omega. ¿En qué te puedo ayudar hoy?</div>
+                <div class="message-time">8:30 AM</div>
+              </div>
+            </div>
+            <div class="message user-message">
+              <div class="message-content">
+                <div class="message-text">¿Cuál es el análisis actual de NVDA?</div>
+                <div class="message-time">8:32 AM</div>
+              </div>
+              <div class="message-avatar user">CE</div>
+            </div>
+            <div class="message bot-message">
+              <div class="message-avatar">R2</div>
+              <div class="message-content">
+                <div class="message-text">
+                  📊 <strong>Análisis NVDA — 22 Feb 2026</strong><br><br>
+                  • <strong>Precio actual:</strong> $881.86 (+1.23%)<br>
+                  • <strong>Gatillo Confluencia:</strong> 🟢 LUZ VERDE<br>
+                  • <strong>Z_NLP:</strong> 1.82 | <strong>Z_Vol:</strong> 2.14 | <strong>Score:</strong> 3.89<br>
+                  • <strong>Régimen:</strong> RISK ON (VIX 14.23)<br>
+                  • <strong>Escenario T+3:</strong> A favor +3.2%<br><br>
+                  ✅ El protocolo Seldon-Omega indica condiciones <strong>favorables</strong> para mantener o incrementar posición en NVDA con apalancamiento X5.
+                </div>
+                <div class="message-time">8:32 AM</div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input-area">
+            <div class="chat-suggestions">
+              <button class="suggestion-chip" onclick="sendSuggestion(this)">¿Estado VIX?</button>
+              <button class="suggestion-chip" onclick="sendSuggestion(this)">Analiza GOLD</button>
+              <button class="suggestion-chip" onclick="sendSuggestion(this)">¿Qué haría Buffett?</button>
+              <button class="suggestion-chip" onclick="sendSuggestion(this)">Reporte de hoy</button>
+            </div>
+            <div class="chat-input-row">
+              <input type="text" id="chat-input" class="chat-input" placeholder="Pregunta a R2D2..." onkeypress="handleChatKey(event)" />
+              <button class="chat-send-btn" onclick="sendMessage()" id="send-btn">
+                <span>↑</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 6: CALENDARIO ===== -->
+    <section class="tab-content" id="tab-calendario">
+      <div class="section-header"><h2>📅 Calendario & Eventos</h2></div>
+      <div class="calendario-layout">
+        <!-- Calendar -->
+        <div class="card calendar-card">
+          <div class="calendar-header">
+            <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+            <h3 id="cal-month-title">Febrero 2026</h3>
+            <button class="cal-nav" onclick="changeMonth(1)">›</button>
+          </div>
+          <div class="calendar-grid" id="cal-grid">
+            <div class="cal-day-name">Dom</div><div class="cal-day-name">Lun</div>
+            <div class="cal-day-name">Mar</div><div class="cal-day-name">Mié</div>
+            <div class="cal-day-name">Jue</div><div class="cal-day-name">Vie</div>
+            <div class="cal-day-name">Sáb</div>
+          </div>
+        </div>
+
+        <!-- Events List + Gap Alerts -->
+        <div class="events-col">
+          <div class="card">
+            <div class="card-header"><h3>🚨 Alertas de Gap Risk</h3></div>
+            <div class="gap-alerts">
+              <div class="alert-item high"><span class="alert-icon">⚠️</span><div><strong>ESTE FIN DE SEMANA</strong><p>G7 Summit — Posible volatilidad geopolítica. Reducir exposición el viernes antes del cierre.</p></div></div>
+              <div class="alert-item medium"><span class="alert-icon">📋</span><div><strong>26 Feb — CPI Data</strong><p>Dato de inflación. Alto impacto. Esperar reacción antes de nuevas entradas.</p></div></div>
+              <div class="alert-item low"><span class="alert-icon">ℹ️</span><div><strong>1 Mar — NVDA Earnings</strong><p>Reporte de ganancias NVDA. Revisar posición antes del reporte.</p></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>🗓️ Próximos Eventos Macro</h3></div>
+            <div class="events-list">
+              <div class="event-item"><div class="event-date"><span class="event-day">24</span><span class="event-month">FEB</span></div><div class="event-details"><strong>PMI Manufacturing</strong><span class="event-impact high-impact">ALTO</span><p>EE.UU. — Estimado: 51.5</p></div></div>
+              <div class="event-item"><div class="event-date"><span class="event-day">26</span><span class="event-month">FEB</span></div><div class="event-details"><strong>CPI (Inflación)</strong><span class="event-impact high-impact">ALTO</span><p>EE.UU. — Anterior: 3.1%</p></div></div>
+              <div class="event-item"><div class="event-date"><span class="event-day">28</span><span class="event-month">FEB</span></div><div class="event-details"><strong>GDP Q4 Revision</strong><span class="event-impact medium-impact">MEDIO</span><p>EE.UU. — Anterior: 3.3%</p></div></div>
+              <div class="event-item"><div class="event-date"><span class="event-day">1</span><span class="event-month">MAR</span></div><div class="event-details"><strong>NVDA Earnings</strong><span class="event-impact high-impact">ALTO</span><p>After Market — Est. EPS: $5.59</p></div></div>
+              <div class="event-item"><div class="event-date"><span class="event-day">7</span><span class="event-month">MAR</span></div><div class="event-details"><strong>Non-Farm Payrolls</strong><span class="event-impact high-impact">ALTO</span><p>EE.UU. — Anterior: 353K</p></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>📆 Lógica Semanal Seldon-Omega</h3></div>
+            <div class="weekly-logic">
+              <div class="week-day cautious"><strong>LUN</strong><span>⚠️ Cauteloso — No abrir nuevas posiciones al inicio.</span></div>
+              <div class="week-day operable"><strong>MAR</strong><span>✅ Operable — Condiciones normales del protocolo.</span></div>
+              <div class="week-day operable"><strong>MIÉ</strong><span>✅ Operable — Día de mayor liquidez.</span></div>
+              <div class="week-day operable"><strong>JUE</strong><span>✅ Operable — Confirmar señales de cierre.</span></div>
+              <div class="week-day cautious"><strong>VIE</strong><span>⚠️ Reducir — Cerrar 50% antes de fin de sesión.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TAB 7: AUDITORÍA ===== -->
+    <section class="tab-content" id="tab-auditoria">
+      <div class="section-header"><h2>📈 Auditoría & Performance</h2></div>
+
+      <!-- Kill Switch -->
+      <div class="killswitch-banner" id="killswitch-banner">
+        <div class="ks-left">
+          <span class="ks-label">KILL SWITCH</span>
+          <span class="ks-status inactive" id="ks-status-text">INACTIVO</span>
+        </div>
+        <div class="ks-desc">El protocolo está operativo. Todas las señales son válidas.</div>
+        <button class="ks-toggle inactive" id="ks-toggle" onclick="toggleKillSwitch()">Activar Kill Switch</button>
+      </div>
+
+      <!-- Performance Charts -->
+      <div class="audit-grid">
+        <div class="card">
+          <div class="card-header"><h3>📊 Performance Acumulada del Protocolo</h3></div>
+          <canvas id="performance-chart" height="200"></canvas>
+        </div>
+        <div class="metrics-panel">
+          <div class="metric-card"><div class="metric-label">Acierto Direccional</div><div class="metric-value positive">73.4%</div></div>
+          <div class="metric-card"><div class="metric-label">Drawdown Máximo</div><div class="metric-value negative">-8.2%</div></div>
+          <div class="metric-card"><div class="metric-label">Sharpe Ratio</div><div class="metric-value positive">1.84</div></div>
+          <div class="metric-card"><div class="metric-label">Señales Totales</div><div class="metric-value">47</div></div>
+          <div class="metric-card"><div class="metric-label">Señales Correctas</div><div class="metric-value positive">34</div></div>
+          <div class="metric-card"><div class="metric-label">Retorno Acumulado</div><div class="metric-value positive">+22.7%</div></div>
+        </div>
+      </div>
+
+      <!-- Historical Log -->
+      <div class="card">
+        <div class="card-header"><h3>📜 Registro Histórico de Recomendaciones</h3></div>
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Activo</th>
+              <th>Señal</th>
+              <th>Precio Entrada</th>
+              <th>T+1</th>
+              <th>T+2</th>
+              <th>T+3</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>21 Feb</td><td><span class="asset-badge nvda">NVDA</span></td><td class="positive">BUY</td>
+              <td>$869.80</td><td class="positive">+0.8%</td><td class="positive">+2.1%</td><td class="positive">+3.2%</td>
+              <td><span class="result-badge win">✅ A FAVOR</span></td>
+            </tr>
+            <tr>
+              <td>19 Feb</td><td><span class="asset-badge gold">GOLD</span></td><td class="positive">BUY</td>
+              <td>$2,302.40</td><td class="negative">-0.3%</td><td class="positive">+0.9%</td><td class="positive">+1.7%</td>
+              <td><span class="result-badge win">✅ A FAVOR</span></td>
+            </tr>
+            <tr>
+              <td>18 Feb</td><td><span class="asset-badge nke">NKE</span></td><td class="negative">WATCH</td>
+              <td>$96.10</td><td class="negative">-1.2%</td><td class="negative">-2.3%</td><td class="negative">-2.8%</td>
+              <td><span class="result-badge loss">⚠️ EN CONTRA</span></td>
+            </tr>
+            <tr>
+              <td>15 Feb</td><td><span class="asset-badge nvda">NVDA</span></td><td class="positive">BUY</td>
+              <td>$856.40</td><td class="positive">+1.4%</td><td class="positive">+2.8%</td><td class="positive">+3.9%</td>
+              <td><span class="result-badge win">✅ A FAVOR</span></td>
+            </tr>
+            <tr>
+              <td>12 Feb</td><td><span class="asset-badge nvda">NVDA</span></td><td class="positive">BUY</td>
+              <td>$832.20</td><td class="neutral">+0.2%</td><td class="neutral">+0.5%</td><td class="positive">+1.3%</td>
+              <td><span class="result-badge neutral-result">➡️ LATERAL</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
